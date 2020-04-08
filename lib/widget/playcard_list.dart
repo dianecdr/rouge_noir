@@ -21,6 +21,11 @@ class PlaycardList extends StatelessWidget {
                   return new PlaycardWidget(card: _cards[index]);
                 })
             // _cards.map((el) => PlaycardWidget(card: el)).toList())
-            : Text('0 carte'));
+            : Text(
+                'Pas de carte',
+                style: TextStyle(
+                  color: Colors.blueGrey,
+                ),
+              ));
   }
 }

@@ -3,6 +3,7 @@ import 'package:rouge_noir/widget/playcard_list.dart';
 import 'package:rouge_noir/widget/playcard_widget.dart';
 
 import 'model/playcard.dart';
+import 'model/user.dart';
 import 'services/playcard_service.dart';
 
 void main() {
@@ -30,6 +31,7 @@ class MyAppState extends State<MyApp> {
   List<Playcard> deck = [];
   List<Playcard> _userCards = [];
   Playcard pickedCard;
+  User maxime = new User(name: 'Maxime');
 
   void initDeck() {
     loadPlaycards().then((e) {
@@ -47,9 +49,9 @@ class MyAppState extends State<MyApp> {
 
   void _pickCard() {
     setState(() {
-      if (deck != null && _userCards.length < 4) {
+      if (deck != null && maxime.cards.length < 4) {
         pickedCard = (deck.toList()..shuffle()).first;
-        _userCards.add(pickedCard);
+        maxime.cards.add(pickedCard);
         deck.remove(pickedCard);
       } else {
         pickedCard = null;
@@ -57,10 +59,10 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  void _resetGame(){
+  void _resetGame() {
     setState(() {
       initDeck();
-      _userCards = [];
+      maxime.cards = [];
       pickedCard = null;
     });
   }
@@ -86,7 +88,8 @@ class MyAppState extends State<MyApp> {
               ),
               color: Theme.of(context).primaryColor,
               onPressed: _pickCard,
-            ),            FlatButton(
+            ),
+            FlatButton(
               child: Text(
                 'Reset',
                 style: TextStyle(
@@ -99,7 +102,12 @@ class MyAppState extends State<MyApp> {
             (_userCards.length < 4)
                 ? PlaycardWidget(card: pickedCard)
                 : Text("Vous avez déjà tiré 4 cartes"),
-            PlaycardList(_userCards),
+            Column(
+              children: [
+                Text('Cartes de ' + maxime.name + ' : '),
+                PlaycardList(maxime.cards)
+              ],
+            )
           ],
         ),
       ),

@@ -11,7 +11,7 @@ class PlaycardList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 50,
-        width: 300,
+        width: 200,
         margin: EdgeInsets.all(10),
         child: (_cards != null && _cards.isNotEmpty)
             ? new ListView.builder(

@@ -1,19 +1,22 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:rouge_noir/widget/playcard_list.dart';
+import 'package:rouge_noir/widget/playcard_widget.dart';
 
 import 'model/playcard.dart';
+import 'services/playcard_service.dart';
 
 void main() {
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: new ThemeData(
-      primaryColor: Colors.red,
-      primaryColorDark: Colors.brown,
-      accentColor: Colors.yellowAccent,
-    ),
+        primarySwatch: Colors.teal,
+        primaryColorDark: Colors.brown,
+        accentColor: Colors.tealAccent,
+        textTheme: ThemeData.light().textTheme.copyWith(
+                button: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ))),
     home: new MyApp(),
   ));
 }
@@ -24,9 +27,9 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  //Future<List<Playcard>> futurePlaycards;
-  List<Playcard> deck;
-  List<Playcard> userCards = [];
+  List<Playcard> deck = [];
+  List<Playcard> _userCards = [];
+  Playcard pickedCard;
 
   void initDeck() {
     loadPlaycards().then((e) {
@@ -36,25 +39,30 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  Future<String> _loadPlaycardAsset() async {
-    return await rootBundle.loadString('assets/data/playcards_en.json');
-  }
-
-  Future<List<Playcard>> loadPlaycards() async {
-    List<Playcard> playcards;
-    String jsonCards = await _loadPlaycardAsset();
-    final List data = json.decode(jsonCards);
-    playcards = data
-        .map<Playcard>((jsonCards) => Playcard.fromJson(jsonCards))
-        .toList();
-    return playcards;
-  }
-
   @override
   void initState() {
     super.initState();
-    //futurePlaycard = loadPlaycards();
     initDeck();
+  }
+
+  void _pickCard() {
+    setState(() {
+      if (deck != null && _userCards.length < 4) {
+        pickedCard = (deck.toList()..shuffle()).first;
+        _userCards.add(pickedCard);
+        deck.remove(pickedCard);
+      } else {
+        pickedCard = null;
+      }
+    });
+  }
+
+  void _resetGame(){
+    setState(() {
+      initDeck();
+      _userCards = [];
+      pickedCard = null;
+    });
   }
 
   @override
@@ -62,25 +70,38 @@ class MyAppState extends State<MyApp> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Load local JSON file",
+          'Rouge ou Noir ?',
           style: new TextStyle(color: Colors.white),
         ),
       ),
       body: new Center(
-          child: PlaycardList(deck),
-
-          /*child: FutureBuilder(
-          future: futurePlaycards,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return PlaycardList(deck);
-            }
-            if (snapshot.hasError) {
-              return Text('Error in fetch data');
-            }
-            return Container();
-          },
-        )*/
+        child: Column(
+          children: <Widget>[
+            FlatButton(
+              child: Text(
+                'Piocher une carte',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.button.color,
+                ),
+              ),
+              color: Theme.of(context).primaryColor,
+              onPressed: _pickCard,
+            ),            FlatButton(
+              child: Text(
+                'Reset',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.button.color,
+                ),
+              ),
+              color: Theme.of(context).primaryColor,
+              onPressed: _resetGame,
+            ),
+            (_userCards.length < 4)
+                ? PlaycardWidget(card: pickedCard)
+                : Text("Vous avez déjà tiré 4 cartes"),
+            PlaycardList(_userCards),
+          ],
+        ),
       ),
     );
   }

@@ -11,17 +11,12 @@ Future<List<Playcard>> loadPlaycards() async {
   List<Playcard> playcards;
   String jsonCards = await _loadPlaycardAsset();
   final List data = json.decode(jsonCards);
-  playcards =
-      data.map<Playcard>((jsonCards) => Playcard.fromJson(jsonCards)).toList();
+  playcards = data
+      .map<Playcard>((jsonCards) => Playcard.fromJson(jsonCards))
+      .toList();
   return playcards;
 }
 
-List<Playcard> initDeck() {
-  loadPlaycards().then((value) {
-    print('value in then: ' + value.toString());
-    return value;
-  }).catchError((err) => print(err));
-}
 
 
 

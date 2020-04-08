@@ -10,14 +10,17 @@ class PlaycardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 75,
-        child: (_cards != null)
+        height: 50,
+        width: 300,
+        margin: EdgeInsets.all(10),
+        child: (_cards != null && _cards.isNotEmpty)
             ? new ListView.builder(
+                scrollDirection: Axis.horizontal,
                 itemCount: _cards.length,
                 itemBuilder: (BuildContext ctx, int index) {
                   return new PlaycardWidget(card: _cards[index]);
                 })
             // _cards.map((el) => PlaycardWidget(card: el)).toList())
-            : Text('Paquet de cartes vide'));
+            : Text('0 carte'));
   }
 }

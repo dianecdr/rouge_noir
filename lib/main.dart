@@ -42,6 +42,7 @@ class MyAppState extends State<MyApp> {
     User(name: 'Maxime'),
     User(name: 'Diane'),
   ];
+  int roundIndex = 1;
 
   User userPlaying;
 
@@ -64,11 +65,13 @@ class MyAppState extends State<MyApp> {
     setState(() {
       if (userIndex == users.length - 1) {
         userIndex = 0;
+        roundIndex ++;
       } else {
         userIndex++;
       }
 
       if (deck != null && user.cards.length < 4) {
+        print ('inside pickCard actions');
         pickedCard = (deck.toList()..shuffle()).first;
         user.cards.add(pickedCard);
         deck.remove(pickedCard);
@@ -86,6 +89,7 @@ class MyAppState extends State<MyApp> {
         user.cards = [];
       }
       pickedCard = null;
+      roundIndex = 1;
     });
   }
 
@@ -102,7 +106,7 @@ class MyAppState extends State<MyApp> {
         child: Column(
           children: <Widget>[
             Text(
-              '[TO DO] ROUND NUMBER',
+              '[TO DO] ROUND '+roundIndex.toString(),
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

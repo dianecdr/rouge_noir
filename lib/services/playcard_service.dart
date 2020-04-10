@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:rouge_noir/model/playcard.dart';
+import 'package:rouge_noir/models/playcard.dart';
 
 Future<String> _loadPlaycardAsset() async {
   return await rootBundle.loadString('assets/data/playcards_en.json');

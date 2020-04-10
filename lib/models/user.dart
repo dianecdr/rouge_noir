@@ -1,4 +1,4 @@
-import 'package:rouge_noir/model/playcard.dart';
+import 'package:rouge_noir/models/playcard.dart';
 
 class User {
   String id;

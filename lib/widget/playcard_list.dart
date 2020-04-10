@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rouge_noir/model/playcard.dart';
+import 'package:rouge_noir/models/playcard.dart';
 import 'package:rouge_noir/widget/playcard_widget.dart';
 
 class PlaycardList extends StatelessWidget {

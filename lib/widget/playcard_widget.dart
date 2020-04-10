@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:rouge_noir/model/playcard.dart';
+import 'package:rouge_noir/models/playcard.dart';
 
 class PlaycardWidget extends StatelessWidget {
   final Playcard card;
@@ -28,10 +28,10 @@ class PlaycardWidget extends StatelessWidget {
 }
 
 class SuitWidget extends StatelessWidget {
-  final String suitText;
+  final String suitName;
 
   Icon get suitIcon {
-    switch (suitText) {
+    switch (suitName) {
       case 'hearts':
         {
           return Icon(
@@ -66,7 +66,7 @@ class SuitWidget extends StatelessWidget {
     }
   }
 
-  SuitWidget(this.suitText);
+  SuitWidget(this.suitName);
 
   @override
   Widget build(BuildContext context) {

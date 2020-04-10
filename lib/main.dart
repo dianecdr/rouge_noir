@@ -34,6 +34,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  static const NB_ROUNDS = 4;
   int userIndex = 0;
   List<Playcard> deck = [];
   List<Playcard> _userCards = [];
@@ -65,13 +66,15 @@ class MyAppState extends State<MyApp> {
     setState(() {
       if (userIndex == users.length - 1) {
         userIndex = 0;
-        roundIndex ++;
+        if (roundIndex != NB_ROUNDS) {
+          roundIndex++;
+        }
       } else {
         userIndex++;
       }
 
-      if (deck != null && user.cards.length < 4) {
-        print ('inside pickCard actions');
+      if (deck != null && user.cards.length < NB_ROUNDS) {
+        print('inside pickCard actions');
         pickedCard = (deck.toList()..shuffle()).first;
         user.cards.add(pickedCard);
         deck.remove(pickedCard);
@@ -90,6 +93,7 @@ class MyAppState extends State<MyApp> {
       }
       pickedCard = null;
       roundIndex = 1;
+      userIndex = 0;
     });
   }
 
@@ -106,20 +110,28 @@ class MyAppState extends State<MyApp> {
         child: Column(
           children: <Widget>[
             Text(
-              '[TO DO] ROUND '+roundIndex.toString(),
+              'ROUND ' + roundIndex.toString(),
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
-            Text(
-              'Joueur actuel : ' + userPlaying.name,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.teal,
-              ),
-            ),
+            users.last.cards.length == NB_ROUNDS
+                ? Text(
+                    'FIN DE PARTIE',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.amber,
+                    ),
+                  )
+                : Text(
+                    'Joueur actuel : ' + userPlaying.name,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.teal,
+                    ),
+                  ),
             FlatButton(
               child: Text(
                 'Piocher',

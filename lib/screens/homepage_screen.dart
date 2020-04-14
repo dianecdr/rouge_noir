@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'register_players_screen.dart';
+import 'register_users_screen.dart';
 
 class HomePageScreen extends StatelessWidget {
   void selectStartGame(BuildContext ctx) {
     Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
-      return RegisterPlayersScreen();
+      return RegisterUsersScreen();
     }));
   }
 

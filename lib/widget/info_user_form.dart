@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class InfoUserForm extends StatelessWidget {
-  final userNameController = TextEditingController();
+  final TextEditingController userNameController;
+
+  InfoUserForm({@required this.userNameController});
 
   @override
   Widget build(BuildContext context) {

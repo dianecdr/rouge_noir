@@ -5,8 +5,9 @@ import 'package:rouge_noir/services/playcard_service.dart';
 import 'package:rouge_noir/widget/playcard_list.dart';
 
 class GameScreen extends StatefulWidget {
-//  final List<User> users;
-//  GameScreen({this.users});
+  final List<User> users;
+
+  GameScreen(this.users);
 
   @override
   GameScreenState createState() => new GameScreenState();
@@ -25,8 +26,6 @@ class GameScreenState extends State<GameScreen> {
 
   User userPlaying;
 
-
-
   void initDeck() {
     loadPlaycards().then((e) {
       deck = e;
@@ -39,12 +38,12 @@ class GameScreenState extends State<GameScreen> {
   void initState() {
     super.initState();
     initDeck();
-    userPlaying = usersTest[userIndex];
+    userPlaying = widget.users[userIndex];
   }
 
   void _pickCard(User user) {
     setState(() {
-      if (userIndex == usersTest.length - 1) {
+      if (userIndex == widget.users.length - 1) {
         userIndex = 0;
         if (roundIndex != NB_ROUNDS) {
           roundIndex++;
@@ -58,7 +57,7 @@ class GameScreenState extends State<GameScreen> {
         pickedCard = (deck.toList()..shuffle()).first;
         user.cards.add(pickedCard);
         deck.remove(pickedCard);
-        userPlaying = usersTest[userIndex];
+        userPlaying = widget.users[userIndex];
       } else {
         pickedCard = null;
       }
@@ -68,7 +67,7 @@ class GameScreenState extends State<GameScreen> {
   void _resetGame() {
     setState(() {
       initDeck();
-      for (var user in usersTest) {
+      for (var user in widget.users) {
         user.cards = [];
       }
       pickedCard = null;
@@ -86,7 +85,8 @@ class GameScreenState extends State<GameScreen> {
           style: new TextStyle(color: Colors.white),
         ),
       ),
-      body: new Center(
+      body: new Container(
+        width: 600,
         child: Column(
           children: <Widget>[
             Text(
@@ -97,21 +97,21 @@ class GameScreenState extends State<GameScreen> {
                 color: Colors.black,
               ),
             ),
-            usersTest.last.cards.length == NB_ROUNDS
+            widget.users.last.cards.length == NB_ROUNDS
                 ? Text(
-              'FIN DE PARTIE',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.amber,
-              ),
-            )
+                    'FIN DE PARTIE',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.amber,
+                    ),
+                  )
                 : Text(
-              'Joueur actuel : ' + userPlaying.name,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.teal,
-              ),
-            ),
+                    'Joueur actuel : ' + userPlaying.name,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.teal,
+                    ),
+                  ),
             FlatButton(
               child: Text(
                 'Piocher',
@@ -132,17 +132,16 @@ class GameScreenState extends State<GameScreen> {
               color: Theme.of(context).accentColor,
               onPressed: _resetGame,
             ),
-            Container(
-              height: 300,
+            Expanded(
               child: ListView.builder(
-                  itemCount: usersTest.length,
+                  itemCount: widget.users.length,
                   itemBuilder: (BuildContext ctx, int index) {
                     return new Column(children: [
                       Text(
-                        usersTest[index].name,
+                        widget.users[index].name,
                         style: Theme.of(context).textTheme.subtitle,
                       ),
-                      PlaycardList(usersTest[index].cards),
+                      PlaycardList(widget.users[index].cards),
                     ]);
                   }),
             ),

@@ -5,7 +5,7 @@ class User {
   String name;
   List<Playcard> cards = [];
 
-  User({String name}) {
+  User(String name){
     this.name = name;
     this.id = name+'2020';
   }

@@ -12,15 +12,15 @@ class PlaycardWidget extends StatelessWidget {
     return Container(
       height: 50,
       width: 50,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-      ),
       child: card != null
-          ? Column(
-              children: <Widget>[
-                SuitWidget(card.suit),
-                Text(card.value),
-              ],
+          ? Card(
+              elevation: 5,
+              child: Column(
+                children: <Widget>[
+                  SuitWidget(card.suit),
+                  Text(card.value, style: TextStyle(fontSize: 14),),
+                ],
+              ),
             )
           : Text("0 carte"),
     );

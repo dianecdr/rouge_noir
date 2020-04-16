@@ -6,8 +6,9 @@ void main() {
     debugShowCheckedModeBanner: false,
     theme: new ThemeData(
       primarySwatch: Colors.teal,
-      primaryColorDark: Colors.brown,
+      primaryColorDark: Color.fromRGBO(0, 121, 107, 1),
       accentColor: Colors.amber,
+      buttonColor: Colors.teal,
       textTheme: ThemeData.light().textTheme.copyWith(
           button: TextStyle(
             color: Colors.white,

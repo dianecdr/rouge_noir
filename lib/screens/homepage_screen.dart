@@ -19,15 +19,25 @@ class HomePageScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            Text(
-              'Bienvenue dans le jeu Rouge ou Noir !',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                'Bienvenue dans le jeu\nRouge ou Noir !',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
             ),
             RaisedButton(
-              child: Text('Commencer une partie'),
-              color: Theme.of(context).textTheme.button.color,
+              child: Text(
+                'Commencer une partie',
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.button.color,
+                    fontWeight: FontWeight.bold),
+              ),
+              color: Theme.of(context).primaryColor,
               onPressed: () {
                 selectStartGame(context);
               },

@@ -1,4 +1,4 @@
-# Playcard Game Red or Black ? - Flutter
+# Playcard Game :diamonds: :hearts: Red or Black :clubs: :spades: ? - Flutter
 
 * Flutter v 1.12.13
 * Dart v 2.7.1
@@ -34,4 +34,4 @@ If the player was wrong, he drinks N sips himself.
 
 #### 4) 4rd Round - Between or External
 * **Bet** : 4 sips
-* **Guessing rule** : Each player, before picking a card, says if the color of the card would be Hearts, Diamonds, Clumbs or Spides.
+* **Guessing rule** : Each player, before picking a card, says if the color of the card would be Hearts, Diamonds, Clubs or Spades.

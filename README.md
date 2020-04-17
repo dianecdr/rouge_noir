@@ -32,6 +32,6 @@ If the player was wrong, he drinks N sips himself.
 * **Guessing rule** : Each player, before picking a card, says if the value of the card would be Between or Outside the interval made by the 2 previous cards picked.
 
 
-#### 4) 4rd Round - Between or External
+#### 4) 4rd Round - Hearts, Diamons, Clubs or Spades
 * **Bet** : 4 sips
 * **Guessing rule** : Each player, before picking a card, says if the color of the card would be Hearts, Diamonds, Clubs or Spades.
